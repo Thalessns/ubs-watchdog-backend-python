@@ -7,7 +7,7 @@ from watchdog.routing.users.enums import RiskLevelEnum, StatusKycEnum
 
 class UserRequest(BaseModel):
 
-    name: str
+    nome: str
     email: EmailStr
     pais: str
     nivel_risco: RiskLevelEnum
@@ -17,7 +17,7 @@ class UserRequest(BaseModel):
 class UserResponse(BaseModel):
 
     id: UUID
-    name: str
+    nome: str
     email: EmailStr
     pais: str
     nivel_risco: RiskLevelEnum

@@ -1,0 +1,32 @@
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: ubs-postgres
+    ports:
+      - "6001:5432"
+    environment:
+      - POSTGRES_USER=docker_user
+      - POSTGRES_PASSWORD=docker_password
+      - POSTGRES_DB=ubs_watchdog
+      - POSTGRES_MULTIPLE_DATABASES=ubs_watchdog,ubs_watchdog_test
+    shm_size: 128mb
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U docker_user -d ubs_watchdog"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - ubs-network
+
+networks:
+  ubs-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

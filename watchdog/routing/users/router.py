@@ -1,8 +1,7 @@
-from uuid import UUID
 from fastapi import APIRouter
 
 from watchdog.routing.users.schemas import UserRequest, UserResponse
-from watchdog.routing.users.service import UserService
+from watchdog.routing.users.service import UsersService
 
 router = APIRouter(prefix="/users")
 
@@ -17,7 +16,7 @@ async def create_user(user: UserRequest) -> UserResponse:
     Returns:
         UserResponse: Created user.
     """
-    return await UserService.create_user(user)
+    return await UsersService.create_user(user)
 
 
 @router.get("/", status_code=200, response_model=list[UserResponse])
@@ -27,17 +26,17 @@ async def get_users() -> list[UserResponse]:
     Returns:
         list[UserResponse]: List of users.
     """
-    return await UserService.get_all_users()
+    return await UsersService.get_users()
 
 
-@router.get("/{id}", status_code=200, response_model=UserResponse)
-async def get_user(id: UUID) -> UserResponse:
+@router.get("/by-id", status_code=200, response_model=UserResponse)
+async def get_user(id: str) -> UserResponse:
     """Get a user by ID
     
     Args:
-        id (int): User ID.
+        id (str): User ID.
 
     Returns:
         UserResponse: User with the given ID.
     """
-    return await UserService.get_user_by_id(id)
+    return await UsersService.get_user_by_id(id)

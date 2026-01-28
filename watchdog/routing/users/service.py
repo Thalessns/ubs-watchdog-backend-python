@@ -1,6 +1,6 @@
-from uuid import UUID4
+from uuid import UUID, uuid4
 from datetime import datetime
-from sqlalchemy import IntegrityError
+from sqlalchemy.exc import IntegrityError
 
 from watchdog.database.database import Database
 from watchdog.database.entities import users_table
@@ -30,13 +30,14 @@ class UsersService:
         Raises:
             UserEmailAlreadyExistsException: If a user with the same email already exists.
         """
-        new_id = UUID4()
+        new_id = uuid4()
         date_created = datetime.now()
 
         query = users_table.insert().values(
             id = new_id,
-            name = new_user.name,
+            nome = new_user.nome,
             email = new_user.email,
+            pais = new_user.pais,
             nivel_risco = new_user.nivel_risco,
             status_kyc = new_user.status_kyc,
             data_criacao = date_created
@@ -44,7 +45,7 @@ class UsersService:
         try:
             await Database.execute(query)
         except IntegrityError:
-            raise UserEmailAlreadyExistsException(id=new_user.email)
+            raise UserEmailAlreadyExistsException(email=new_user.email)
         return UserResponse(id=new_id, **new_user.model_dump(), data_criacao=date_created)
 
     @classmethod
@@ -59,11 +60,11 @@ class UsersService:
         return [UserResponse(**row) for row in rows]
 
     @classmethod
-    async def get_user_by_id(cls, user_id: UUID4) -> UserResponse:
+    async def get_user_by_id(cls, user_id: str) -> UserResponse:
         """Retrieve a user by their ID.
 
         Args:
-            user_id (UUID4): The ID of the user to retrieve.
+            user_id (str): The ID of the user to retrieve.
 
         Returns:
             UserResponse: The user data.
