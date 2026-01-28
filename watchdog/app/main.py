@@ -12,7 +12,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="UBS Watchdog - Python", version="0.0.1", lifespan=lifespan)
+app = FastAPI(title="UBS Watchdog - Python", version="0.1.0", lifespan=lifespan)
 prefix = "/api"
 
 
