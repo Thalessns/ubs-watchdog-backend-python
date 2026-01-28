@@ -2,10 +2,10 @@ from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel, EmailStr
 
-from watchdog.routing.users.enums import RiskLevelEnum, StatusKycEnum
+from watchdog.routing.clientes.enums import RiskLevelEnum, StatusKycEnum
 
 
-class UserRequest(BaseModel):
+class ClienteRequest(BaseModel):
 
     nome: str
     email: EmailStr
@@ -14,7 +14,7 @@ class UserRequest(BaseModel):
     status_kyc: StatusKycEnum
 
 
-class UserResponse(BaseModel):
+class ClienteResponse(BaseModel):
 
     id: UUID
     nome: str
