@@ -10,8 +10,8 @@ relatorio_router = APIRouter(prefix="/relatorios")
 @relatorio_router.get("/", status_code=status.HTTP_200_OK, response_model=RelatorioResponse)
 async def get_relatorio(
     cliente_id: str,
-    periodo_inicio: datetime | None,
-    periodo_fim: datetime | None,
+    periodo_inicio: datetime | None = None,
+    periodo_fim: datetime | None = None,
 ) -> RelatorioResponse:
     """Get the report for the given cliente and period.
 

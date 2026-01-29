@@ -36,7 +36,7 @@ class AlertaRelatorio(BaseModel):
     data_hora: datetime
 
 
-class AlertasInfo(BaseException):
+class AlertasInfo(BaseModel):
     
     numero_alertas: int
     alertas: list[AlertaRelatorio]

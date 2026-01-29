@@ -104,7 +104,7 @@ class RelatorioService:
         }
 
         for row in rows:
-            valores[row.moeda] += row.valor
+            valores[row.moeda.value] += row.valor
             transacoes.append(await cls.__get_transacao_relatorio(row))
 
         return TransacoesInfo(
@@ -150,7 +150,7 @@ class RelatorioService:
         }
 
         for row in rows:
-            regras_qtd[row.regra] += 1
+            regras_qtd[row.regra.value] += 1
             alertas.append(await cls.__get_alerta_relatorio(row))
 
         return AlertasInfo(
