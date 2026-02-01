@@ -15,7 +15,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="UBS Watchdog - Python", version="0.1.0", lifespan=lifespan)
+app = FastAPI(title="UBS Watchdog - Python", version="0.2.0", lifespan=lifespan)
 
 
 @app.get("/", status_code=status.HTTP_200_OK, response_model=dict[str, str])
